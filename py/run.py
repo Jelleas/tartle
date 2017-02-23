@@ -1,4 +1,5 @@
 import objects
+import operator
 
 with open("../input/me_at_the_zoo.in") as f:
     caches, endpoints, videos, requests = objects.read(f)
@@ -15,4 +16,20 @@ connectionList = [None] * len(endpoints.endpoints)
 for i in range(0, len(endpoints.endpoints)):
     connectionList[i] = {}
     for j in range(0, len(endpoints.endpoints[i].latencies)):
-        connectionList[endpoints.endpoints[i].id][endpoints.endpoints[i].latencies[j].cache.id] = endpoints.endpoints[i].latencies[j].ms
+        improvement = endpoints.endpoints[i].dataLatency.ms - endpoints.endpoints[i].latencies[j].ms
+        connectionList[endpoints.endpoints[i].id][endpoints.endpoints[i].latencies[j].cache.id] = improvement
+
+# compute video preference for each endpoint
+endpointsSorted = [None] * len(endpoints.endpoints)
+for i in range(0, len(connectionList)):
+    endpointsSorted[i] = []
+    for key, value in sorted(endpointsList[i].iteritems(), key=lambda (k,v): (v,k)):
+        endpointsSorted[i].append(key)
+    endpointsSorted[i].reverse()
+
+#
+
+print endpointsSorted
+
+
+
