@@ -1,7 +1,14 @@
 import objects
 import operator
+import score
 
-with open("../input/me_at_the_zoo.in") as f:
+def write(caches, outputFile):
+    outputFile.write("{}\n".format(len(caches.caches)))
+    for cache in caches:
+        string = " ".join([str(video.id) for video in cache.videos])
+        outputFile.write("{} {}\n".format(cache.id, string))
+
+with open("../input/kittens.in") as f:
     caches, endpoints, videos, requests = objects.read(f)
 
 # get requests per video per endpoint
@@ -28,8 +35,28 @@ for i in range(0, len(connectionList)):
     endpointsSorted[i].reverse()
 
 #
+for endp in range(0, len(endpointsSorted)):
+    #print endp
+    #print connectionList[endp]
+    #print endpointsSorted[endp]
+    #print "---"
+    videosPushed = 0
 
-print endpointsSorted
+    #print connectionList[endp].keys()
+    for cache in connectionList[endp].keys():
+        try:
+            #print "Trying to add video ", endpointsSorted[endp][videosPushed], " to cache ", cache
+            caches.caches[cache].addVideo(videos.videos[endpointsSorted[endp][videosPushed]])
+            videosPushed += 1
+        except:
+            #print "Cache full"
+            continue
 
+# klaar
+with open("../output/maartenben3.txt", "w+") as f:
+    write(caches, f)
+
+with open("../output/maartenben3.txt") as f:
+    print score.score(f, caches, endpoints, videos, requests)
 
 
