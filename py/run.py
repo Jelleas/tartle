@@ -28,6 +28,30 @@ for i in range(0, len(connectionList)):
     endpointsSorted[i].reverse()
 
 #
+for endp in range(0, len(endpointsSorted)):
+    print endp
+    print connectionList[endp]
+    print endpointsSorted[endp]
+    print "---"
+    videosPushed = 0
+
+    print connectionList[endp].keys()
+    for cache in connectionList[endp].keys():
+        try:
+            print "Trying to add video ", endpointsSorted[endp][videosPushed]
+            caches.caches[cache].addVideo(videos.videos[endpointsSorted[endp][videosPushed]])
+            videosPushed += 1
+        except:
+            print "Cache full"
+            continue
+
+
+
+    print "==="
+
+
+
+
 
 print endpointsSorted
 
