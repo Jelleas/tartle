@@ -28,7 +28,7 @@ def score(outputFile, caches, endpoints, videos, requests):
     return score / nRequests
 
 if __name__ == "__main__":
-    with open("../input/bullshit.in") as inputFile, open("../output/score.out") as outputFile:
+    with open("../input/bullshit.in") as inputFile, open("../output/bullshit.out") as outputFile:
         caches, endpoints, videos, requests = read(inputFile)
         print requests.get(2)
         print caches

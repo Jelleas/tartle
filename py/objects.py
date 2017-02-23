@@ -85,6 +85,10 @@ class Cache(object):
         self.videos.append(video)
         if self.size > self.capacity:
             raise ValueError("CACHE IS OVERFULL!!!! size{} capacity{}".format(self.size, self.capacity))
+
+    def removeVideo(self, video):
+        self.videos.remove(video)
+
     @property
     def size(self):
         s = 0
