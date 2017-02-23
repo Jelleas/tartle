@@ -27,13 +27,13 @@ class Requests(object):
 
 class Videos(object):
     def __init__(self):
-        self.vidoes = {}
+        self.videos = {}
 
     def add(self, video):
-        self.vidoes[video.id] = video
+        self.videos[video.id] = video
 
     def get(self, id):
-        return self.vidoes[id]
+        return self.videos[id]
 
     def __repr__(self):
         return "VIDEOS: {}".format(self.vidoes)
