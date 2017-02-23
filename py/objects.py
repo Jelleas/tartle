@@ -36,7 +36,7 @@ class Videos(object):
         return self.videos[id]
 
     def __repr__(self):
-        return "VIDEOS: {}".format(self.vidoes)
+        return "VIDEOS: {}".format(self.videos)
 
 class Endpoints(object):
     def __init__(self):
@@ -85,6 +85,10 @@ class Cache(object):
         self.videos.append(video)
         if self.size > self.capacity:
             raise ValueError("CACHE IS OVERFULL!!!! size{} capacity{}".format(self.size, self.capacity))
+
+    def removeVideo(self, video):
+        self.videos.remove(video)
+
     @property
     def size(self):
         s = 0
