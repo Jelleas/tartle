@@ -71,7 +71,7 @@ class Request(object):
         self.weight = weight
 
     def __repr__(self):
-        return "REQUEST: {} {} {}".format(self.video, self.endpoint, self.weight)
+        return "REQUEST: {} {} weight:{}".format(self.video, self.endpoint, self.weight)
 
 class Video(object):
     def __init__(self, id, size):
@@ -91,7 +91,7 @@ class Endpoint(object):
         self.latencies.append(latency)
 
     def __repr__(self):
-        return "ENDPOINT: {} {} {}".format(self.id, self.dataLatency, self.latencies)
+        return "ENDPOINT: id:{}".format(self.id)
 
 def score(inputFile, outputFile):
     endpointN = 0
@@ -141,4 +141,4 @@ datacenter = Cache(-1)
 
 with open("../input/me_at_the_zoo.in") as inputFile, open("../output/score.out") as outputFile:
     score(inputFile, outputFile)
-    print requests.requests
+    print requests.requests[2]
