@@ -21,6 +21,10 @@ class Requests(object):
     def __repr__(self):
         return "REQUESTS: {}".format(self.requests)
 
+    def __iter__(self):
+        for request in self.requests:
+            yield request
+
 class Videos(object):
     def __init__(self):
         self.vidoes = {}
@@ -80,6 +84,8 @@ class Cache(object):
     def __repr__(self):
         return "CACHE: id:{}, size:{}".format(self.id, self.size)
 
+    def __contains__(self, video):
+        return video in self.videos
 
 class Request(object):
     def __init__(self, video, endpoint, weight):
