@@ -15,6 +15,9 @@ class Requests(object):
     def add(self, request):
         self.requests.append(request)
 
+    def get(self, id):
+        return self.requests[id]
+
     def __repr__(self):
         return "REQUESTS: {}".format(self.requests)
 
@@ -93,7 +96,7 @@ class Endpoint(object):
     def __repr__(self):
         return "ENDPOINT: id:{}".format(self.id)
 
-def score(inputFile, outputFile):
+def read(inputFile):
     endpointN = 0
     cacheCount = 0
     endpoint = None
@@ -136,9 +139,8 @@ caches = Caches()
 endpoints = Endpoints()
 videos = Videos()
 requests = Requests()
-
 datacenter = Cache(-1)
 
 with open("../input/me_at_the_zoo.in") as inputFile, open("../output/score.out") as outputFile:
-    score(inputFile, outputFile)
-    print requests.requests[2]
+    read(inputFile)
+    print requests.get(2)
