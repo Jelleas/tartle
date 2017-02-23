@@ -61,9 +61,21 @@ class Caches(object):
         return "CACHES: {}".format(self.caches)
 
 class Cache(object):
-    def __init__(self, id, size):
+    def __init__(self, id, capacity):
         self.id = id
-        self.size = size
+        self.capacity = capacity
+        self.videos = []
+
+    def addVideo(self, video):
+        self.videos.append(video)
+        if self.size > self.capacity:
+            raise ValueError("CACHE IS OVERFULL!!!! size{} capacity{}".format(self.size, self.capacity))
+    @property
+    def size(self):
+        s = 0
+        for vid in self.videos:
+            s += vid.size
+        return s
 
     def __repr__(self):
         return "CACHE: id:{}, size:{}".format(self.id, self.size)
