@@ -51,6 +51,10 @@ class Endpoints(object):
     def __repr__(self):
         return "ENDPOINTS: {}".format(self.endpoints)
 
+    def __iter__(self):
+        for id in self.endpoints:
+            yield self.endpoints[id]
+
 class Caches(object):
     def __init__(self, cacheSize):
         self.caches = {}
@@ -64,6 +68,10 @@ class Caches(object):
     def __repr__(self):
         return "CACHES: {}".format(self.caches)
 
+    def __iter__(self):
+        for id in self.caches:
+            yield self.caches[id]
+
 class Cache(object):
     def __init__(self, id, capacity):
         self.id = id
@@ -71,6 +79,9 @@ class Cache(object):
         self.videos = []
 
     def addVideo(self, video):
+        if video in self.videos:
+            return
+
         self.videos.append(video)
         if self.size > self.capacity:
             raise ValueError("CACHE IS OVERFULL!!!! size{} capacity{}".format(self.size, self.capacity))
@@ -81,8 +92,11 @@ class Cache(object):
             s += vid.size
         return s
 
+    def overCapicity(self):
+        return self.size > self.capacity
+
     def __repr__(self):
-        return "CACHE: id:{}, size:{}".format(self.id, self.size)
+        return "CACHE: id:{}, capacity:{}, size:{}".format(self.id, self.capacity, self.size)
 
     def __contains__(self, video):
         return video in self.videos
