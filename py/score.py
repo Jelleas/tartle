@@ -5,6 +5,7 @@ def score(outputFile, caches, endpoints, videos, requests):
     for line in outputFile:
         cacheId = int(line.split(" ")[0])
         cache = caches.get(cacheId)
+        print line
         for vidId in [int(i) for i in line.split(" ")[1:]]:
             video = videos.get(vidId)
             cache.addVideo(video)
