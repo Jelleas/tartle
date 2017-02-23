@@ -48,23 +48,25 @@ class Endpoints(object):
         return "ENDPOINTS: {}".format(self.endpoints)
 
 class Caches(object):
-    def __init__(self):
+    def __init__(self, cacheSize):
         self.caches = {}
+        self.cacheSize = cacheSize
 
     def get(self, id):
         if id not in self.caches:
-            self.caches[id] = Cache(id)
+            self.caches[id] = Cache(id, self.cacheSize)
         return self.caches[id]
 
     def __repr__(self):
         return "CACHES: {}".format(self.caches)
 
 class Cache(object):
-    def __init__(self, id):
+    def __init__(self, id, size):
         self.id = id
+        self.size = size
 
     def __repr__(self):
-        return "CACHE: {}".format(self.id)
+        return "CACHE: id:{}, size:{}".format(self.id, self.size)
 
 
 class Request(object):
@@ -96,11 +98,14 @@ class Endpoint(object):
     def __repr__(self):
         return "ENDPOINT: id:{}".format(self.id)
 
-datacenter = Cache(-1)
+datacenter = Cache(-1, -1)
 
 
 def read(inputFile):
-    caches = Caches()
+    firstLine = next(inputFile)
+    cacheSize = int(firstLine.split(" ")[-1])
+
+    caches = Caches(cacheSize)
     endpoints = Endpoints()
     videos = Videos()
     requests = Requests()
@@ -109,8 +114,6 @@ def read(inputFile):
     cacheCount = 0
     endpoint = None
     endpointFlag = True
-
-    next(inputFile)
 
     videoLine = next(inputFile)
     for i, vidSize in enumerate([int(size) for size in videoLine.split(" ")]):
